@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "Node16",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "moduleResolution": "node16",
+    "baseUrl": ".",
+    "paths": {
+        "#controllers/*": ["./src/controllers/*.js"],
+        "#models/*": ["./src/models/*.js"],
+        "#config/*": ["./src/config/*.js"],
+        "#routes/*": ["./src/routes/*.js"],
+        "#middlewares/*": ["./src/middlewares/*.js"]
+    }
+  },
+  "exclude": ["node_modules/"],
+  "include": ["src/**/*.ts"]
+}
