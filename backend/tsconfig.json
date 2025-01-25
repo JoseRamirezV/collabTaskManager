@@ -9,11 +9,12 @@
     "moduleResolution": "node16",
     "baseUrl": ".",
     "paths": {
-        "#controllers/*": ["./src/controllers/*.js"],
-        "#models/*": ["./src/models/*.js"],
-        "#config/*": ["./src/config/*.js"],
-        "#routes/*": ["./src/routes/*.js"],
-        "#middlewares/*": ["./src/middlewares/*.js"]
+        "#controllers/*": ["./src/controllers/*.ts"],
+        "#models/*": ["./src/models/*.ts"],
+        "#config/*": ["./src/config/*.ts"],
+        "#routes/*": ["./src/routes/*.ts"],
+        "#middlewares/*": ["./src/middlewares/*.ts"],
+        "#interfaces/*": ["./src/interfaces/*.ts"]
     }
   },
   "exclude": ["node_modules/"],
