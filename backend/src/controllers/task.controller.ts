@@ -13,8 +13,8 @@ export const getTasks = async (_req: Request, res: Response) => {
 
 export const getTasksByUserId = async (req: Request, res: Response) => {
   try {
-    const userId = req.params.userId;
-    if (!userId) throw new Error('Bad request');
+    const userId = res.locals.userId;
+    console.log({userId});
 
     const tasks = await Task.find({ userId });
     if (!tasks) throw new Error('No tasks found');
@@ -27,7 +27,9 @@ export const getTasksByUserId = async (req: Request, res: Response) => {
 
 export const addTask = async (req: Request, res: Response) => {
   try {
-    const task = new Task(req.body);
+    const userId = res.locals.userId;
+    console.log({userId});
+    const task = new Task({ userId, ...req.body });
     await task.save();
 
     res.status(201).json({ ok: true, data: task });

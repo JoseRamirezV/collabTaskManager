@@ -1,6 +1,6 @@
 import { model, Schema, ValidatorProps } from 'mongoose';
 
-const allowedStatuses = ['Pendiente', 'En proceso', 'Finalizado', 'Vencido']
+const allowedStatuses = ['Pendiente', 'En proceso', 'Finalizado', 'Vencido'];
 
 const TaskSchema = new Schema(
   {
@@ -27,4 +27,4 @@ const TaskSchema = new Schema(
   }
 );
 
-export default model('Task', TaskSchema);
+export default model('task', TaskSchema);
