@@ -1,5 +1,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@layer {
+  input:not([type='checkbox']),
+  textarea,
+  select {
+    @apply py-1.5 px-3 rounded-lg focus:ring-2 ring-blue-300 shadow;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    transition: all .2s ease;
+
+    &:hover{
+      transform: scale(1.05);
+    }
+
+    &:active{
+      transform: scale(1);
+      filter: brightness(.95)
+    }
+
+    &:disabled{
+      pointer-events: none;
+      opacity: .4;
+    }
+  }
+}
+
+html,
+body {
+  min-height: 100%;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable;
+}
+
+body {
+  &.swal2-shown:not(.swal2-no-backdrop, .swal2-toast-shown) {
+    overflow: auto !important;
+  }
+}
 
 :root {
   font-family: Onest;
