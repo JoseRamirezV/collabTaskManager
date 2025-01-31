@@ -3,6 +3,9 @@ import cors from 'cors'
 import morgan from 'morgan';
 import taskRoutes from '#routes/task.routes';
 import userRoutes from '#routes/user.routes';
+import dotenv from 'dotenv';
+
+dotenv.config()
 
 const app = express()
 

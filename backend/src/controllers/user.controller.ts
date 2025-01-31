@@ -26,9 +26,9 @@ export const login = async (req: Request, res: Response) => {
     const token = generateToken({ ...user });
     res.status(200).json({ data, token });
   } catch (error) {
-    console.log(error);
+    console.log({error});
     if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+      res.status(200).json({ error: error.message });
     } else {
       res.status(500).json({ error });
     }
@@ -41,7 +41,6 @@ export const signup = async (req: Request, res: Response) => {
     const user = await User.findOne({ email });
     if (user)
       throw new Error('Este correo electrónico ya se encuentra registrado');
-
     const password = encryptPassword(req.body.password);
 
     const newUser = new User({
@@ -54,7 +53,7 @@ export const signup = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+      res.status(200).json({ error: error.message });
     } else {
       res.status(500).json({ error });
     }
@@ -76,7 +75,7 @@ export const update = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+      res.status(200).json({ error: error.message });
     } else {
       res.status(500).json({ error });
     }
@@ -95,35 +94,7 @@ export const remove = async (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
-    } else {
-      res.status(500).json({ error });
-    }
-  }
-};
-
-export const changePassword = async (req: Request, res: Response) => {
-  try {
-    const { oldPassword, newPassword } = req.body;
-    const userId = res.locals.userId;
-    const { password: currentPassword } = (await User.findById(
-      userId
-    )) as UserInterface;
-
-    const passwordMatches = bcrypt.compareSync(oldPassword, currentPassword);
-    if (!passwordMatches) throw new Error('Invalid password');
-
-    const updatedUser = await User.findOneAndUpdate(
-      { _id: userId },
-      { password: encryptPassword(newPassword) },
-      { new: true, fields: { ...excludeSensitiveFields } }
-    );
-    if (!updatedUser) throw new Error('No se encontró el usuario indicado');
-    res.json({ ok: true });
-  } catch (error) {
-    console.log(error);
-    if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+      res.status(200).json({ error: error.message });
     } else {
       res.status(500).json({ error });
     }
@@ -147,7 +118,7 @@ export const verifyToken = (req: Request, res: Response) => {
   } catch (error) {
     console.log(error);
     if (error instanceof Error) {
-      res.status(500).json({ error: error.message });
+      res.status(200).json({ error: error.message });
     } else {
       res.status(500).json({ error });
     }
@@ -161,5 +132,5 @@ const encryptPassword = (password: string) => {
 
 const generateToken = (data: UserInterface) =>
   jwt.sign(data, process.env.SECRET_KEY as string, {
-    // expiresIn: '1d',
+    expiresIn: '1d',
   });

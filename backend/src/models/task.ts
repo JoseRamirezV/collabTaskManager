@@ -1,10 +1,13 @@
 import { model, Schema, ValidatorProps } from 'mongoose';
 
-const allowedStatuses = ['Pendiente', 'En proceso', 'Finalizado', 'Vencido'];
+const allowedStatuses = ['Pending', 'In process', 'Completed', 'Expired'];
 
 const TaskSchema = new Schema(
   {
-    userId: { type: String, required: true },
+    user: {
+      email: { type: String, required: true },
+      name: { type: String, required: true },
+    },
     title: { type: String, required: true },
     description: { type: String, required: true },
     limitDate: { type: Date, default: null },
@@ -16,9 +19,13 @@ const TaskSchema = new Schema(
           return allowedStatuses.includes(value);
         },
         message: (props: ValidatorProps) =>
-          `'${props.value}' is not a valid status. Allowed values are: ${allowedStatuses.join(', ')}.`,
+          `'${
+            props.value
+          }' is not a valid status. Allowed values are: ${allowedStatuses.join(
+            ', '
+          )}.`,
       },
-      default: 'Pendiente',
+      default: 'Pending',
     },
   },
   {

@@ -3,6 +3,7 @@ import type { Request, Response, NextFunction} from 'express';
 
 interface CustomJwtPayload extends JwtPayload {
   _id: string;
+  name: string;
 }
 
 export default function Auth (req: Request, res: Response, next: NextFunction) {
@@ -15,8 +16,10 @@ export default function Auth (req: Request, res: Response, next: NextFunction) {
       if (err) {
         res.status(401).send({ error: "Acceso no autorizado!" });
       } else {
-        console.log({payload});
-        res.locals.userId = (payload as CustomJwtPayload)?._id
+        res.locals.user= {
+          id: (payload as CustomJwtPayload)?._id,
+          name: (payload as CustomJwtPayload)?.name
+        }
         next();
       }
     });
