@@ -3,14 +3,13 @@ import { useState } from 'react';
 import { Toaster } from 'sonner';
 
 import { useLogin } from '@/auth/hooks/useLogIn';
-import { sleep } from '@/dashboard/utils/sleep';
 import { useFormik } from 'formik';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router';
 import * as Yup from 'yup';
 import { LoadingIcon } from '../components/LoadingIcon';
 import { PasswordInput } from '../components/PasswordInput';
 import SignUpHero from '../components/SignUpHero';
-import { Link } from 'react-router';
 
 const initialValues = {
   name: '',
@@ -44,7 +43,6 @@ export default function SignUpPage() {
     initialValues,
     onSubmit: async (values) => {
       setIsLoading(true);
-      await sleep(3);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password2, ...data } = values;
       await createUser({ ...data });
