@@ -8,4 +8,4 @@ export interface Task {
   status: Status;
 }
 
-export type Status = 'Pending' | 'In process' | 'Completed' | 'Expired';
+export type Status = 'Pending' | 'In process' | 'Completed';

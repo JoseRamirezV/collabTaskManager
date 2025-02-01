@@ -26,7 +26,6 @@ export const signUp = async (data: UserSession) => {
     if (error) throw new Error(error);
     return { ok };
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) return { error: error.message };
     return { error: 'Algo salió mal...' };
   }

@@ -7,7 +7,7 @@ export default function Guard() {
   const { session, login, logout } = useUserStore();
   const token = window.localStorage.getItem('token');
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     (async () => {
       if (!token) return session.isLogged && logout();
@@ -16,10 +16,10 @@ export default function Guard() {
         if (!res) throw new Error('Hubo una falla de conexión con el servidor');
         const { error, user } = res;
         if (error) throw new Error(error);
-        login({ ...user, isLogged: true });
+        if(!session.isLogged) login({ ...user, isLogged: true });
       } catch (error) {
         logout();
-        navigate('/auth/sign-in', {
+        navigate('/auth/', {
           state: {
             error: (error as Error).message,
           },

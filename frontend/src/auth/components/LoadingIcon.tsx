@@ -6,7 +6,7 @@ interface Props {
 
 export function LoadingIcon({ className }: Props) {
   return (
-    <span className={`block`}>
+    <span className='block'>
       <AiOutlineLoading className={`${className} mx-auto animate-spin`} />
     </span>
   );

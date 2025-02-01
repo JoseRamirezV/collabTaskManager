@@ -1,10 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { FaPencil, FaTrash } from 'react-icons/fa6';
-import {
-  IoIosCheckmarkCircle,
-  IoIosInformationCircle,
-  IoIosRemoveCircle,
-} from 'react-icons/io';
+import { IoIosCheckmarkCircle, IoIosInformationCircle } from 'react-icons/io';
 import { IoEllipsisHorizontalCircleSharp } from 'react-icons/io5';
 import {
   MdOutlineKeyboardArrowUp,
@@ -23,9 +19,7 @@ interface Props {
   task: Task;
 }
 
-const AllowedStatuses = ['Pending', 'In process', 'Completed', 'Expired'];
-
-const STATUS = {
+export const StatusConfig = {
   Pending: {
     label: 'Pendiente',
     bg: 'bg-amber-200',
@@ -44,20 +38,19 @@ const STATUS = {
     color: 'fill-green-600',
     Icon: IoIosCheckmarkCircle,
   },
-  Expired: {
-    label: 'Vencido',
-    bg: 'bg-red-300',
-    color: 'fill-red-600',
-    Icon: IoIosRemoveCircle,
-  },
 };
+
+const AllowedStatuses = Object.keys(StatusConfig);
 
 type updatableKeys = 'status' | 'priority';
 
 export function TaskListItem({ task }: Props) {
   const { deleteTask, updateTask, error, isLoading } = useTaskStore();
-  const status = STATUS[task.status];
+  const status = StatusConfig[task.status];
   const StatusIcon = status.Icon;
+  
+  const dividedName = task.user.name.split(/\s+/)
+  const userName = dividedName.length >= 2 ? `${dividedName[0]} ${dividedName[1]}` : dividedName[0]
 
   const MySwal = withReactContent(Swal);
 
@@ -84,11 +77,7 @@ export function TaskListItem({ task }: Props) {
   return (
     <div className='flex shadow bg-white rounded-md h-20 group/card'>
       <div className='flex items-center flex-col justify-between p-2'>
-        <span
-          className={
-            'relative flex basis-1/2 items-center group cursor-pointer'
-          }
-        >
+        <span className='relative flex basis-1/2 items-center group cursor-pointer'>
           {task.priority ? (
             <MdOutlineKeyboardDoubleArrowUp className='size-5 text-white bg-red-500 rounded-full' />
           ) : (
@@ -96,7 +85,7 @@ export function TaskListItem({ task }: Props) {
           )}
           <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition'>
             <button
-              className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 bg-white disabled:bg-red-200'
+              className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2.5 bg-white disabled:bg-red-200'
               onClick={() => update('priority', true)}
               disabled={task.priority}
             >
@@ -104,7 +93,7 @@ export function TaskListItem({ task }: Props) {
               Prioridad
             </button>
             <button
-              className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 bg-white disabled:bg-green-200'
+              className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2.5 bg-white disabled:bg-green-200'
               onClick={() => update('priority', false)}
               disabled={!task.priority}
             >
@@ -118,43 +107,45 @@ export function TaskListItem({ task }: Props) {
         >
           <StatusIcon className={`size-6 ${status.color}`} />
           <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition'>
-            {Object.keys(STATUS).map((key, i) => {
+            {Object.keys(StatusConfig).map((key, i) => {
               const statusIndex = AllowedStatuses.findIndex(
                 (s) => s === task.status
               );
               const isPrevStatus = statusIndex >= i;
-              if (key === 'Expired') return;
-              const status = STATUS[key as Status];
-              const StatusIcon = status.Icon;
+              const { Icon, bg, color, label } = StatusConfig[key as Status];
+
               return (
                 <button
                   key={i}
                   className={`ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2 ${
-                    isPrevStatus ? status.bg : 'bg-white'
+                    isPrevStatus ? bg : 'bg-white'
                   }`}
                   onClick={() => update('status', key)}
                   disabled={isLoading || task.status === key || isPrevStatus}
                 >
-                  <StatusIcon className={`size-5 ${status.color}`} />
-                  {status.label}
+                  <Icon className={`size-5 ${color}`} />
+                  {label}
                 </button>
               );
             })}
           </div>
         </span>
       </div>
-      <div className='text-sm flex flex-col grow max-w-2/3 p-2'>
-        <b>
-          {task.title}
-          <span className='block text-xs opacity-40 font-normal'>
-            {STATUS[task.status].label}
-          </span>
-        </b>
+      <div className='flex flex-col grow max-w-2/3 p-2'>
+        <span>
+          <strong className='flex items-center gap-1 text-sm'>
+            {task.title}
+            <small className='font-normal'>| @{userName}</small>
+          </strong>
+          <p className='truncate'>{task.description}</p>
+        </span>
 
-        <p className='text-lg truncate'>{task.description}</p>
+        <span className='text-xs opacity-55 font-normal px-2 py-0.5 bg-gray-300 rounded w-fit'>
+          {StatusConfig[task.status].label}
+        </span>
       </div>
       <div className='relative flex flex-col items-end p-3 grow overflow-x-clip'>
-        <small className={`${task.priority}`}>
+        <small>
           {task.priority ? 'Prioridad' : 'No prioridad'}
         </small>
         <div className='absolute bottom-2 flex gap-1 opacity-0 w-0 group-hover/card:w-12 group-hover/card:opacity-100 transition-all'>

@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import * as Yup from 'yup';
 import { Task } from '../interfaces/task.interface';
 import { useTaskStore } from '../store/TaskStore';
+import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardArrowUp } from 'react-icons/md';
 
 interface Props {
   task?: Task;
@@ -31,7 +32,7 @@ export default function TaskForm({ task, close }: Props) {
       .typeError('Introduce una fecha válida'),
   });
 
-  const { errors, touched, handleSubmit, getFieldProps } = useFormik({
+  const { errors, touched, handleSubmit, getFieldProps, values } = useFormik({
     initialValues: {
       title: task?.title ?? '',
       description: task?.description ?? '',
@@ -62,6 +63,8 @@ export default function TaskForm({ task, close }: Props) {
     },
     validationSchema,
   });
+
+  const isPriority = values.priority;
 
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-5 p-2 pt-0'>
@@ -120,11 +123,23 @@ export default function TaskForm({ task, close }: Props) {
         </select>
       </label>
       <footer className='flex items-center justify-between'>
-        <label className='flex gap-2'>
-          <legend>
-            <input type='checkbox' {...getFieldProps('priority')} />
-          </legend>
-          Es prioridad
+        <label
+          className={`flex items-center gap-1 rounded-lg px-3 py-2 cursor-pointer text-base transition hover: active:scale-95 text-white ${
+            isPriority ? 'bg-red-500' : 'bg-green-600'
+          }`}
+        >
+          {isPriority ? (
+            <MdOutlineKeyboardDoubleArrowUp className='size-5'/>
+          ) : (
+            <MdOutlineKeyboardArrowUp className='size-5'/>
+          )}
+          <input
+            type='checkbox'
+            defaultChecked={isPriority}
+            className='appearance-none'
+            {...getFieldProps('priority')}
+          />
+          {isPriority ? 'Prioridad' : 'No prioridad'}
         </label>
         <button
           type='submit'

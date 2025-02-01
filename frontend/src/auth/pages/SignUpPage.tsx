@@ -43,7 +43,6 @@ export default function SignUpPage() {
       await sleep(3);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password2, ...data } = values;
-      console.log(values);
       await createUser({ ...data });
       setIsLoading(false);
     },
