@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { FaPencil, FaTrash } from 'react-icons/fa6';
+import { FaEye, FaPencil, FaTrash } from 'react-icons/fa6';
 import { IoIosCheckmarkCircle, IoIosInformationCircle } from 'react-icons/io';
 import { IoEllipsisHorizontalCircleSharp } from 'react-icons/io5';
 import {
@@ -13,6 +13,7 @@ import withReactContent from 'sweetalert2-react-content';
 import { LoadingIcon } from '@/auth/components/LoadingIcon';
 import { Status, Task } from '../interfaces/task.interface';
 import { useTaskStore } from '../store/TaskStore';
+import { TaskView } from './TaskView';
 const TaskForm = lazy(() => import('./TaskForm'));
 
 interface Props {
@@ -22,20 +23,20 @@ interface Props {
 export const StatusConfig = {
   Pending: {
     label: 'Pendiente',
-    bg: 'bg-amber-200',
-    color: 'fill-amber-500',
+    bg: 'bg-amber-100',
+    color: 'text-amber-500',
     Icon: IoIosInformationCircle,
   },
   'In process': {
     label: 'En proceso',
-    bg: 'bg-blue-300',
-    color: 'fill-blue-600',
+    bg: 'bg-blue-200',
+    color: 'text-blue-600',
     Icon: IoEllipsisHorizontalCircleSharp,
   },
   Completed: {
     label: 'Completado',
-    bg: 'bg-green-300',
-    color: 'fill-green-600',
+    bg: 'bg-green-200',
+    color: 'text-green-600',
     Icon: IoIosCheckmarkCircle,
   },
 };
@@ -48,13 +49,14 @@ export function TaskListItem({ task }: Props) {
   const { deleteTask, updateTask, error, isLoading } = useTaskStore();
   const status = StatusConfig[task.status];
   const StatusIcon = status.Icon;
-  
-  const dividedName = task.user.name.split(/\s+/)
-  const userName = dividedName.length >= 2 ? `${dividedName[0]} ${dividedName[1]}` : dividedName[0]
+
+  const dividedName = task.user.name.split(/\s+/);
+  const userName =
+    dividedName.length >= 2 ? dividedName[0] + dividedName[1] : dividedName[0];
 
   const MySwal = withReactContent(Swal);
 
-  const openForm = (task: Task) => {
+  const openForm = () => {
     MySwal.fire({
       html: (
         <Suspense fallback={<LoadingIcon />}>
@@ -74,8 +76,17 @@ export function TaskListItem({ task }: Props) {
     );
   };
 
+  const viewTask = () => {
+    MySwal.fire({
+      html: <TaskView task={task} />,
+      width: '30%',
+      showConfirmButton: false,
+      showCloseButton: true,
+    });
+  };
+
   return (
-    <div className='flex shadow bg-white rounded-md h-20 group/card'>
+    <div className='flex shadow bg-white rounded-md h-20 group/card cursor-pointer' onClick={viewTask}>
       <div className='flex items-center flex-col justify-between p-2'>
         <span className='relative flex basis-1/2 items-center group cursor-pointer'>
           {task.priority ? (
@@ -140,18 +151,22 @@ export function TaskListItem({ task }: Props) {
           <p className='truncate'>{task.description}</p>
         </span>
 
-        <span className='text-xs opacity-55 font-normal px-2 py-0.5 bg-gray-300 rounded w-fit'>
-          {StatusConfig[task.status].label}
+        <span className={`text-xs font-normal px-2 py-0.5 ${status.bg} ${status.color} rounded w-fit`}>
+          {status.label}
         </span>
       </div>
       <div className='relative flex flex-col items-end p-3 grow overflow-x-clip'>
-        <small>
-          {task.priority ? 'Prioridad' : 'No prioridad'}
-        </small>
-        <div className='absolute bottom-2 flex gap-1 opacity-0 w-0 group-hover/card:w-12 group-hover/card:opacity-100 transition-all'>
+        <small>{task.priority ? 'Prioridad' : 'No prioridad'}</small>
+        <div className='absolute bottom-2 flex gap-1 opacity-0 translate-x-full origin-right group-hover/card:translate-x-1 group-hover/card:opacity-100 transition-all'>
+          <button
+            className='p-1.5 rounded-lg text-gray-700 bg-gray-200 hover:scale-105 transition-transform'
+            onClick={viewTask}
+          >
+            <FaEye className='size-3' />
+          </button>
           <button
             className='p-1.5 rounded-lg text-white bg-amber-500 hover:scale-105 transition-transform'
-            onClick={() => openForm(task)}
+            onClick={openForm}
           >
             <FaPencil className='size-3' />
           </button>

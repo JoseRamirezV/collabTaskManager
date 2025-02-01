@@ -10,6 +10,7 @@ import * as Yup from 'yup';
 import { LoadingIcon } from '../components/LoadingIcon';
 import { PasswordInput } from '../components/PasswordInput';
 import SignUpHero from '../components/SignUpHero';
+import { Link } from 'react-router';
 
 const initialValues = {
   name: '',
@@ -23,11 +24,14 @@ export default function SignUpPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   const validationSchema = Yup.object({
-    name: Yup.string().required('Campo requerido'),
+    name: Yup.string()
+      .max(45, 'El nombre no puede contener mas de 45 caracteres')
+      .required('Campo requerido'),
     email: Yup.string()
       .email('Formato de email invalido')
       .required('Campo requerido'),
     password: Yup.string()
+      .max(20, 'La contraseña no puede tener mas de 20 caracteres')
       .min(8, 'La contraseña debe tener al menos 8 caracteres')
       .matches(/^[^ñ]+$/, "La contraseña no puede contener la letra 'ñ'")
       .required('Campo requerido'),
@@ -54,7 +58,7 @@ export default function SignUpPage() {
       <Helmet>
         <title>Registro</title>
       </Helmet>
-      <section className='flex justify-around mx-auto py-12 px-8'>
+      <section className='flex items-center justify-around mx-auto py-12 px-8'>
         <form
           className='flex flex-col gap-4 rounded-lg bg-white shadow-lg p-8'
           onSubmit={handleSubmit}
@@ -106,17 +110,25 @@ export default function SignUpPage() {
             </legend>
             <PasswordInput {...getFieldProps('password2')} />
           </label>
-          <button
-            type='submit'
-            className='bg-blue-500 rounded-lg text-white py-2'
-            disabled={isLoading}
-          >
-            {isLoading ? (
-              <LoadingIcon className='fill-white size-6' />
-            ) : (
-              'Registrarse'
-            )}
-          </button>
+          <div>
+            <button
+              type='submit'
+              className='bg-blue-500 rounded-lg text-white py-2 w-full mb-2'
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <LoadingIcon className='fill-white size-6' />
+              ) : (
+                'Registrarse'
+              )}
+            </button>
+            <p className='block text-sm'>
+              Ya tienes una cuenta?
+              <Link to={'/auth/'} className='ms-1 text-blue-500'>
+                Inicia sesión!
+              </Link>
+            </p>
+          </div>
         </form>
         <SignUpHero />
       </section>

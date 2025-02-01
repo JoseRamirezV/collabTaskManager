@@ -21,7 +21,7 @@ const LoginPage = () => {
       });
       window.history.replaceState({}, '');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleLogin(event: FormEvent<HTMLFormElement>) {
@@ -33,7 +33,6 @@ const LoginPage = () => {
       setIsLoading(false);
     });
   }
-
 
   return (
     <>
@@ -53,27 +52,22 @@ const LoginPage = () => {
           </label>
           <label className='flex flex-col'>
             Contraseña
-            <PasswordInput
-              name={'password'}
-            />
+            <PasswordInput name={'password'} />
           </label>
-          <button
-            type='submit'
-            className='bg-blue-500 rounded-lg py-2 text-white'
-            disabled={isLoading}
-          >
-            Iniciar sesión
-          </button>
-          <div className='flex flex-col items-start justify-between'>
-            <Link to={'/auth/sign-up'} className='text-sm text-blue-500'>
-              Registrarme
-            </Link>
-            <Link
-              to={'/auth/forgot-my-password'}
-              className='text-sm text-blue-500'
+          <div>
+            <button
+              type='submit'
+              className='bg-blue-500 rounded-lg py-2 mb-2 w-full text-white'
+              disabled={isLoading}
             >
-              Olvidé mi contraseña
-            </Link>
+              Iniciar sesión
+            </button>
+            <p className='block text-sm'>
+              Aun no tienes una cuenta?
+              <Link to={'/auth/sign-up'} className='ms-1 text-blue-500'>
+                Regístrate!
+              </Link>
+            </p>
           </div>
         </form>
         <span style={{ position: 'absolute' }}>

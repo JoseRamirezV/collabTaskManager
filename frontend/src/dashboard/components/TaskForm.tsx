@@ -119,7 +119,6 @@ export default function TaskForm({ task, close }: Props) {
           <option value='Pending'>Pendiente</option>
           <option value='In process'>En proceso</option>
           <option value='Completed'>Completado</option>
-          <option value='Expired'>Vencido</option>
         </select>
       </label>
       <footer className='flex items-center justify-between'>

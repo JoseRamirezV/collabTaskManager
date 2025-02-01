@@ -30,6 +30,16 @@
     }
   }
 }
+.thin-scrollbar {
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: .5rem;
+  }
+
+  &::-webkit-scrollbar-thumb{
+    @apply rounded-full bg-neutral-300
+  }
+}
 
 html,
 body {

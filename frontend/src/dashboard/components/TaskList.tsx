@@ -4,23 +4,26 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
 import { LoadingIcon } from '@/auth/components/LoadingIcon';
-import useFilter from '../hooks/useFilter';
+import { useUserStore } from '@/auth/store/user';
 import { useTaskStore } from '../store/TaskStore';
-import Filter from './Filter';
 import { TaskListItem } from './TaskListItem';
+
+import Filter from './Filter';
+import useFilter from '../hooks/useFilter';
 const TaskForm = lazy(() => import('./TaskForm'));
 
 export function TaskList() {
   const { tasks, getTasks } = useTaskStore();
-  const { filterTasks } = useFilter()
-  
+  const { session } = useUserStore();
+  const { filterTasks } = useFilter();
+
   const MySwal = withReactContent(Swal);
-  const filteredTasks = filterTasks(tasks)
+  const filteredTasks = filterTasks(tasks);
 
   useEffect(() => {
     getTasks();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session]);
 
   const openForm = () => {
     MySwal.fire({
