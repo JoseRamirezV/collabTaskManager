@@ -23,7 +23,7 @@ export default function Navbar() {
           <p className='max-w-24 truncate inline'>{userName}</p>
           <IoIosArrowDown className='inline ms-2 size-3 text-gray-700' />
           <div className='absolute scale-0 top-full right-0 group-hover:scale-100 transition origin-top-right'>
-            <ul className='flex flex-col items-center gap-2 rounded-lg bg-white shadow rounded-tr-none mt-4 [&>li]:px-3.5 [&>li]:py-2'>
+            <ul className='flex flex-col items-center gap-2 rounded-lg bg-white shadow rounded-tr-none mt-4 [&>li>button]:px-3.5 [&>li>button]:py-2'>
               <li>
                 <button
                   className='flex items-center gap-2 group/btn no-hover'

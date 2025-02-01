@@ -75,7 +75,7 @@ export default function SignUpPage() {
                 </span>
               )}
             </legend>
-            <input type='text' {...getFieldProps('name')} />
+            <input type='text' {...getFieldProps('name')} placeholder='Nombre completo'/>
           </label>
           <label className='flex flex-col gap-1'>
             <legend className='relative flex items-center gap-2 w-fit'>
@@ -86,7 +86,7 @@ export default function SignUpPage() {
                 </span>
               )}
             </legend>
-            <input type='text' {...getFieldProps('email')} />
+            <input type='text' {...getFieldProps('email')} placeholder='example@example.com'/>
           </label>
           <label className='flex flex-col gap-1'>
             <legend className='relative flex items-center gap-2 w-fit'>
