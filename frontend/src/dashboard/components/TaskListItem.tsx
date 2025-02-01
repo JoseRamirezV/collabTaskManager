@@ -56,7 +56,8 @@ export function TaskListItem({ task }: Props) {
 
   const MySwal = withReactContent(Swal);
 
-  const openForm = () => {
+  const openForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
     MySwal.fire({
       html: (
         <Suspense fallback={<LoadingIcon />}>
@@ -70,7 +71,17 @@ export function TaskListItem({ task }: Props) {
     });
   };
 
-  const update = (key: updatableKeys, value: string | boolean) => {
+  const removeTask = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    deleteTask(task._id!);
+  };
+
+  const update = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    key: updatableKeys,
+    value: string | boolean
+  ) => {
+    e.stopPropagation();
     updateTask(task._id!, { ...task, [key]: value }).then(
       () => error && toast.error(error)
     );
@@ -86,7 +97,10 @@ export function TaskListItem({ task }: Props) {
   };
 
   return (
-    <div className='flex shadow bg-white rounded-md h-20 group/card cursor-pointer' onClick={viewTask}>
+    <div
+      className='flex shadow bg-white rounded-md h-20 group/card cursor-pointer'
+      onClick={viewTask}
+    >
       <div className='flex items-center flex-col justify-between p-2'>
         <span className='relative flex basis-1/2 items-center group cursor-pointer'>
           {task.priority ? (
@@ -97,7 +111,7 @@ export function TaskListItem({ task }: Props) {
           <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition'>
             <button
               className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2.5 bg-white disabled:bg-red-200'
-              onClick={() => update('priority', true)}
+              onClick={(e) => update(e, 'priority', true)}
               disabled={task.priority}
             >
               <MdOutlineKeyboardDoubleArrowUp className='size-4 text-white bg-red-500 rounded-full' />
@@ -105,7 +119,7 @@ export function TaskListItem({ task }: Props) {
             </button>
             <button
               className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2.5 bg-white disabled:bg-green-200'
-              onClick={() => update('priority', false)}
+              onClick={(e) => update(e, 'priority', false)}
               disabled={!task.priority}
             >
               <MdOutlineKeyboardArrowUp className='size-4 text-white bg-green-600 rounded-full' />
@@ -131,7 +145,7 @@ export function TaskListItem({ task }: Props) {
                   className={`ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2 ${
                     isPrevStatus ? bg : 'bg-white'
                   }`}
-                  onClick={() => update('status', key)}
+                  onClick={(e) => update(e, 'status', key)}
                   disabled={isLoading || task.status === key || isPrevStatus}
                 >
                   <Icon className={`size-5 ${color}`} />
@@ -151,7 +165,9 @@ export function TaskListItem({ task }: Props) {
           <p className='truncate'>{task.description}</p>
         </span>
 
-        <span className={`text-xs font-normal px-2 py-0.5 ${status.bg} ${status.color} rounded w-fit`}>
+        <span
+          className={`text-xs font-normal px-2 py-0.5 ${status.bg} ${status.color} rounded w-fit`}
+        >
           {status.label}
         </span>
       </div>
@@ -170,8 +186,11 @@ export function TaskListItem({ task }: Props) {
           >
             <FaPencil className='size-3' />
           </button>
-          <button className='p-1.5 rounded-lg text-white bg-red-500 hover:scale-105 transition-transform'>
-            <FaTrash className='size-3' onClick={() => deleteTask(task._id!)} />
+          <button
+            className='p-1.5 rounded-lg text-white bg-red-500 hover:scale-105 transition-transform'
+            onClick={removeTask}
+          >
+            <FaTrash className='size-3' />
           </button>
         </div>
       </div>

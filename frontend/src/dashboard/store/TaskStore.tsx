@@ -37,7 +37,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
       set({ error, isLoading: false });
     } else {
       set(({ tasks }) => {
-        return { tasks: [...tasks, task], isLoading: false };
+        return { tasks: [task,...tasks], isLoading: false };
       });
     }
   },

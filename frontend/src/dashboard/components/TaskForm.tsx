@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Task } from '../interfaces/task.interface';
 import { useTaskStore } from '../store/TaskStore';
 import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import { parse } from '@formkit/tempo';
 
 interface Props {
   task?: Task;
@@ -41,9 +42,11 @@ export default function TaskForm({ task, close }: Props) {
       status: task?.status ?? 'Pending',
     },
     onSubmit: (values) => {
+      const limitDate = parse(values.limitDate, 'YYYY-MM-DD')
+      console.log(limitDate);
       const data = {
         ...values,
-        limitDate: new Date(values.limitDate),
+        limitDate,
         user: {
           name: session.name,
           email: session.email,
@@ -81,6 +84,7 @@ export default function TaskForm({ task, close }: Props) {
           type='text'
           className='w-full'
           placeholder='Tarea'
+          autoFocus
           {...getFieldProps('title')}
         />
       </label>

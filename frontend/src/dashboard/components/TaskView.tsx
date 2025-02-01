@@ -15,6 +15,8 @@ export function TaskView({ task }: Props) {
   const StatusIcon = status.Icon;
   const isPriority = task.priority;
 
+  const limitDate = format({ date: task.limitDate, format: 'full', locale: 'es'})
+
   return (
     <article className='flex flex-col gap-3 items-start text-start'>
       <header className='self-center text-center'>
@@ -48,7 +50,7 @@ export function TaskView({ task }: Props) {
       <footer>
         <span className='capitalize'>
           <strong className='block'>Fecha limite </strong>
-          {format({ date: task.limitDate, format: 'full', locale: 'es' })}
+          {limitDate}
         </span>
       </footer>
     </article>
