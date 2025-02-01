@@ -26,11 +26,11 @@ export default function Navbar() {
             <ul className='flex flex-col items-center gap-2 rounded-lg bg-white shadow rounded-tr-none mt-4 [&>li]:px-3.5 [&>li]:py-2'>
               <li>
                 <button
-                  className='flex items-center gap-2 group/btn'
+                  className='flex items-center gap-2 group/btn no-hover'
                   onClick={logout}
                 >
                   <p className='text-sm text-nowrap'>Cerrar sesión</p>
-                  <PiSignOutBold className='size-4white group-hover/btn:fill-red-400 transition' />
+                  <PiSignOutBold className='group-hover/btn:fill-red-400 transition' />
                 </button>
                 {/*TODO: profile link*/}
               </li>

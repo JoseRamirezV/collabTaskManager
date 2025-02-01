@@ -4,6 +4,7 @@ import { TaskList } from './components/TaskList';
 import { FiltersContextProvider } from './context/FilterContext';
 import Dashboard from './pages/Dashboard';
 import Guard from './utils/Guard';
+import NotFound from '@/NotFound';
 
 export default function DashboardRouter() {
   return (
@@ -21,6 +22,7 @@ export default function DashboardRouter() {
               }
             />
           </Route>
+          <Route path='*' element={<NotFound />} />
           {/* <Route path='profile' element={<Profile />} /> */}
         </Route>
       </Routes>
