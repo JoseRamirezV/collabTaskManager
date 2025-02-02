@@ -24,7 +24,7 @@ export default function TaskForm({ task, close }: Props) {
 
   const validationSchema = Yup.object({
     title: Yup.string()
-      .max(15, 'Debe tener 15 caracteres o menos')
+      .max(100, 'Debe tener máximo 100 caracteres')
       .required('Requerido'),
     description: Yup.string().required('Requerido'),
     limitDate: Yup.date()
