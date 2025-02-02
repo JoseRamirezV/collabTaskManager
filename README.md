@@ -1,6 +1,6 @@
 # Descripción
 
-Aplicación CRUD que gestiona tareas en equipo. Cada tarea incluye: título, descripción, fecha de vencimiento, prioridad y estado (pendiente/En proceso(extra)/completada).
+Aplicación CRUD que gestiona tareas en equipo. Cada tarea incluye: título, descripción, fecha de vencimiento, prioridad y estado (pendiente/En proceso/completada).
 
 ## Requisitos:
 

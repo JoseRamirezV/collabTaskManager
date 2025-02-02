@@ -1,0 +1,21 @@
+{
+  "name": "collabtaskmanager",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Aplicación CRUD que gestiona tareas en equipo. Cada tarea incluye: título, descripción, fecha de vencimiento, prioridad y estado (pendiente/En proceso/completada).",
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "build": "npm run build -w frontend && npm run build -w backend",
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "install": "npm install --legacy-peer-deps"
+  },
+  "keywords": [],
+  "author": "JoseRamirez25",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
