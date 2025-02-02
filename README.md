@@ -25,5 +25,5 @@ Aplicación CRUD que gestiona tareas en equipo. Cada tarea incluye: título, des
 
 1. Clonar repositorio
 2. Crear copia de archivo `.env.template` y renombrar a `.env` tanto en carpeta frontend como en backend y llenar sus respectivas variables
-3. Instalar dependencias `npm i` en terminal de cada carpeta
-4. Correr proyecto en modo desarrollo, ejecutar `npm run dev` en ambas terminales
+3. Instalar dependencias `npm i` en terminal de ambas carpetas frontend y backend
+4. Correr proyecto en modo desarrollo, ejecutar `npm run dev` en terminal integrada de ambas carpetas
