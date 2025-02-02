@@ -1,9 +1,10 @@
-import express from 'express'
-import cors from 'cors'
+import cors from 'cors';
+import dotenv from 'dotenv';
+import express from 'express';
 import morgan from 'morgan';
+
 import taskRoutes from '#routes/task.routes';
 import userRoutes from '#routes/user.routes';
-import dotenv from 'dotenv';
 
 dotenv.config()
 

@@ -1,14 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "Node16",
+    "module": "NodeNext",
+    "target": "ES6",
+    "moduleDetection": "force",
+    "outDir": "./dist",
+    "rootDir": "./src",
+		"allowJs": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
+    "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
-    "skipLibCheck": true,
-    "moduleResolution": "node16",
     "baseUrl": ".",
-    "outDir": "dist",
     "paths": {
       "#controllers/*": ["./src/controllers/*.ts"],
       "#models/*": ["./src/models/*.ts"],
@@ -18,6 +21,6 @@
       "#interfaces/*": ["./src/interfaces/*.ts"]
     }
   },
-  "exclude": ["node_modules/"],
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules/", "dist"]
 }

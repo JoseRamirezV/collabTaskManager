@@ -1,7 +1,8 @@
-import Task from '#models/task';
 import { Request, Response } from 'express';
 
-export const getTasks = async (_req: Request, res: Response) => {
+import Task from '#models/task';
+
+export const getTasks = async (_: Request, res: Response) => {
   try {
     const tasks = await Task.find();
     if (!tasks) throw new Error('No tasks found');
@@ -16,7 +17,7 @@ export const getTasks = async (_req: Request, res: Response) => {
   }
 };
 
-export const getTasksByUserId = async (req: Request, res: Response) => {
+export const getTasksByUserId = async (_: Request, res: Response) => {
   try {
     const userId = res.locals.userId;
 

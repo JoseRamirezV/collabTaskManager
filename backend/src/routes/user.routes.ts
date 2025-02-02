@@ -1,13 +1,14 @@
-import Auth from '#middlewares/auth.middleware';
 import { Router } from 'express';
 
 import {
-  signup,
-  verifyToken,
-  update,
-  remove,
   login,
+  remove,
+  signup,
+  update,
+  verifyToken,
 } from '#controllers/user.controller';
+import Auth from '#middlewares/auth.middleware';
+
 const router = Router();
 
 router.get('/:email&:password', login);

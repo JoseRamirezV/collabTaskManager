@@ -1,8 +1,9 @@
-import type { User as UserInterface } from '#interfaces/user.interface';
-import User from '#models/user';
 import bcrypt from 'bcrypt';
 import type { Request, Response } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+
+import type { User as UserInterface } from '#interfaces/user.interface';
+import User from '#models/user';
 
 interface CustomJwtPayload extends JwtPayload {
   _id: string;
