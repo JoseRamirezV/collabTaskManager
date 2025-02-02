@@ -43,7 +43,6 @@ export default function TaskForm({ task, close }: Props) {
     },
     onSubmit: (values) => {
       const limitDate = parse(values.limitDate, 'YYYY-MM-DD')
-      console.log(limitDate);
       const data = {
         ...values,
         limitDate,

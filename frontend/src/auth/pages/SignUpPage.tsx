@@ -7,7 +7,7 @@ import { useFormik } from 'formik';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router';
 import * as Yup from 'yup';
-import { LoadingIcon } from '../components/LoadingIcon';
+import LoadingIcon from '../components/LoadingIcon';
 import { PasswordInput } from '../components/PasswordInput';
 import SignUpHero from '../components/SignUpHero';
 

@@ -102,7 +102,7 @@ export default function TaskListItem({ task }: Props) {
 
   return (
     <div
-      className='flex shadow bg-white rounded-md h-20 flex-[0_1_49%] group/card cursor-pointer'
+      className='flex shadow bg-white rounded-md flex-[0_1_49%] group/card cursor-pointer'
       onClick={viewTask}
     >
       <div className='flex items-center flex-col justify-between p-2'>
@@ -160,8 +160,8 @@ export default function TaskListItem({ task }: Props) {
           </div>
         </span>
       </div>
-      <div className='flex flex-col grow max-w-2/3 p-2'>
 
+      <div className='flex flex-col grow max-w-2/3 p-3'>
         <span>
           <strong className='flex items-center gap-1 text-sm'>
             {task.title}
@@ -169,13 +169,13 @@ export default function TaskListItem({ task }: Props) {
           </strong>
           <p className='truncate max-w-40'>{task.description}</p>
         </span>
-
         <span
           className={`text-xs font-normal px-2 py-0.5 ${status.bg} ${status.color} rounded w-fit`}
         >
           {status.label}
         </span>
       </div>
+
       <div className='relative flex flex-col items-end p-3 grow overflow-x-clip'>
         <small>{task.priority ? 'Prioridad' : 'No prioridad'}</small>
         <div className='absolute bottom-2 flex gap-1 opacity-0 translate-x-full origin-right group-hover/card:translate-x-1 group-hover/card:opacity-100 transition-all'>
