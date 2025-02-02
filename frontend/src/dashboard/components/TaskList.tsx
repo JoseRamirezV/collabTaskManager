@@ -53,7 +53,7 @@ export function TaskList() {
           </button>
         </div>
       </header>
-      <main className='flex max-sm:flex-col gap-2 sm:flex-wrap [&>div]:flex-1'>
+      <main className='flex max-sm:flex-col gap-2 sm:flex-wrap'>
         {filteredTasks.map((task) => (
           <TaskListItem key={task._id} task={task} />
         ))}

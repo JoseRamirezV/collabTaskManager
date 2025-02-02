@@ -8,13 +8,14 @@
     "skipLibCheck": true,
     "moduleResolution": "node16",
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
-        "#controllers/*": ["./src/controllers/*.ts"],
-        "#models/*": ["./src/models/*.ts"],
-        "#config/*": ["./src/config/*.ts"],
-        "#routes/*": ["./src/routes/*.ts"],
-        "#middlewares/*": ["./src/middlewares/*.ts"],
-        "#interfaces/*": ["./src/interfaces/*.ts"]
+      "#controllers/*": ["./src/controllers/*.ts"],
+      "#models/*": ["./src/models/*.ts"],
+      "#config/*": ["./src/config/*.ts"],
+      "#routes/*": ["./src/routes/*.ts"],
+      "#middlewares/*": ["./src/middlewares/*.ts"],
+      "#interfaces/*": ["./src/interfaces/*.ts"]
     }
   },
   "exclude": ["node_modules/"],

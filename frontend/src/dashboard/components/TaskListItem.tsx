@@ -102,7 +102,7 @@ export default function TaskListItem({ task }: Props) {
 
   return (
     <div
-      className='flex shadow bg-white rounded-md h-20 group/card cursor-pointer'
+      className='flex shadow bg-white rounded-md h-20 flex-[0_1_49%] group/card cursor-pointer'
       onClick={viewTask}
     >
       <div className='flex items-center flex-col justify-between p-2'>
@@ -161,12 +161,13 @@ export default function TaskListItem({ task }: Props) {
         </span>
       </div>
       <div className='flex flex-col grow max-w-2/3 p-2'>
+
         <span>
           <strong className='flex items-center gap-1 text-sm'>
             {task.title}
             <small className='font-normal'>| @{userName}</small>
           </strong>
-          <p className='truncate'>{task.description}</p>
+          <p className='truncate max-w-40'>{task.description}</p>
         </span>
 
         <span

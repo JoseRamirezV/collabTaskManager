@@ -99,7 +99,7 @@ export default function TaskForm({ task, close }: Props) {
         </legend>
         <textarea
           rows={4}
-          className='w-full'
+          className='w-full thin-scrollbar resize-none'
           placeholder='Avance primer entregable'
           {...getFieldProps('description')}
         ></textarea>
