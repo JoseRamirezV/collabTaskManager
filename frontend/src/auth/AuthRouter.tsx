@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router';
-import { LoadingIcon } from './components/LoadingIcon';
+import LoadingIcon from './components/LoadingIcon';
 import { useUserStore } from '@/auth/store/user';
 import NotFound from '@/NotFound';
 

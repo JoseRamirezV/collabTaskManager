@@ -4,7 +4,7 @@ interface Props {
   className?: string;
 }
 
-export function LoadingIcon({ className }: Props) {
+export default function LoadingIcon({ className }: Props) {
   return (
     <span className='block'>
       <AiOutlineLoading className={`${className} mx-auto animate-spin`} />

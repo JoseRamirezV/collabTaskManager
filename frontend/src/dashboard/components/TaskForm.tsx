@@ -70,7 +70,7 @@ export default function TaskForm({ task, close }: Props) {
   const isPriority = values.priority;
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-5 p-2 pt-0'>
+    <form onSubmit={handleSubmit} className='flex flex-col gap-5 p-2 pt-0 max-sm:text-sm'>
       <label className='relative flex flex-col items-start gap-1'>
         <legend className='flex items-center gap-2'>
           Titulo
@@ -127,7 +127,7 @@ export default function TaskForm({ task, close }: Props) {
       </label>
       <footer className='flex items-center justify-between'>
         <label
-          className={`flex items-center gap-1 rounded-lg px-3 py-2 cursor-pointer text-base transition hover: active:scale-95 text-white ${
+          className={`flex items-center gap-1 rounded-lg px-3 py-2 cursor-pointer transition hover: active:scale-95 text-white ${
             isPriority ? 'bg-red-500' : 'bg-green-600'
           }`}
         >

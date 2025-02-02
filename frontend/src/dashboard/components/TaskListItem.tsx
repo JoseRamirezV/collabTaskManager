@@ -10,10 +10,10 @@ import { toast } from 'sonner';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import { LoadingIcon } from '@/auth/components/LoadingIcon';
+import LoadingIcon from '@/auth/components/LoadingIcon';
 import { Status, Task } from '../interfaces/task.interface';
 import { useTaskStore } from '../store/TaskStore';
-import { TaskView } from './TaskView';
+const TaskView = lazy(() => import('./TaskView'));
 const TaskForm = lazy(() => import('./TaskForm'));
 
 interface Props {
@@ -45,7 +45,7 @@ const AllowedStatuses = Object.keys(StatusConfig);
 
 type updatableKeys = 'status' | 'priority';
 
-export function TaskListItem({ task }: Props) {
+export default function TaskListItem({ task }: Props) {
   const { deleteTask, updateTask, error, isLoading } = useTaskStore();
   const status = StatusConfig[task.status];
   const StatusIcon = status.Icon;
@@ -53,6 +53,22 @@ export function TaskListItem({ task }: Props) {
   const dividedName = task.user.name.split(/\s+/);
   const userName =
     dividedName.length >= 2 ? dividedName[0] + dividedName[1] : dividedName[0];
+
+  const removeTask = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.stopPropagation();
+    deleteTask(task._id!);
+  };
+
+  const update = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    key: updatableKeys,
+    value: string | boolean
+  ) => {
+    e.stopPropagation();
+    updateTask(task._id!, { ...task, [key]: value }).then(
+      () => error && toast.error(error)
+    );
+  };
 
   const MySwal = withReactContent(Swal);
 
@@ -71,26 +87,14 @@ export function TaskListItem({ task }: Props) {
     });
   };
 
-  const removeTask = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.stopPropagation();
-    deleteTask(task._id!);
-  };
-
-  const update = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-    key: updatableKeys,
-    value: string | boolean
-  ) => {
-    e.stopPropagation();
-    updateTask(task._id!, { ...task, [key]: value }).then(
-      () => error && toast.error(error)
-    );
-  };
-
   const viewTask = () => {
     MySwal.fire({
-      html: <TaskView task={task} />,
-      width: '30%',
+      html: (
+        <Suspense fallback={<LoadingIcon />}>
+          <TaskView task={task} />
+        </Suspense>
+      ),
+      width: '25rem',
       showConfirmButton: false,
       showCloseButton: true,
     });
@@ -108,7 +112,7 @@ export function TaskListItem({ task }: Props) {
           ) : (
             <MdOutlineKeyboardArrowUp className='size-5 text-white bg-green-600 rounded-full' />
           )}
-          <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition'>
+          <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition bg-white'>
             <button
               className='ms-auto flex items-center gap-1 shadow rounded px-2 py-1 me-2.5 bg-white disabled:bg-red-200'
               onClick={(e) => update(e, 'priority', true)}
@@ -131,7 +135,7 @@ export function TaskListItem({ task }: Props) {
           className={`relative flex basis-1/2 items-center group cursor-pointer`}
         >
           <StatusIcon className={`size-6 ${status.color}`} />
-          <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition'>
+          <div className='absolute right-full text-xs text-nowrap p-1 space-y-1 scale-0 group-hover:scale-100 origin-right transition bg-white'>
             {Object.keys(StatusConfig).map((key, i) => {
               const statusIndex = AllowedStatuses.findIndex(
                 (s) => s === task.status

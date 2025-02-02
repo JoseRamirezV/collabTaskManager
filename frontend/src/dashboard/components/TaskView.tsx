@@ -10,7 +10,7 @@ interface Props {
   task: Task;
 }
 
-export function TaskView({ task }: Props) {
+export default function TaskView({ task }: Props) {
   const status = StatusConfig[task.status];
   const StatusIcon = status.Icon;
   const isPriority = task.priority;

@@ -22,39 +22,49 @@ export default function Filter() {
   };
 
   return (
-    <ul className='flex items-baseline gap-2'>
+    <div className='flex max-md:flex-col gap-4 md:gap-2'>
       <legend>Filtrar por</legend>
-      <li className='relative'>
-        <select
-          name='priority'
-          id='priority'
-          className='bg-white cursor-pointer peer'
-          onChange={handleChangePriority}
-        >
-          <option value='All'>Todas</option>
-          <option value='true'>Alta</option>
-          <option value='false'>Baja</option>
-        </select>
-        <label htmlFor='priority' className='absolute left-1 -top-3.5 px-2 py-0.5 text-xs bg-blue-50 peer-focus:bg-blue-300 peer-focus:text-white rounded cursor-pointer'>
-          Prioridad
-        </label>
-      </li>
-      <li className='relative'>
-        <select
-          name='status'
-          id='status'
-          className='bg-white cursor-pointer peer'
-          onChange={handleChangeStatus}
-        >
-          <option value='All'>Todas</option>
-          {AllowedStatuses.map(({ status, label }) => (
-            <option key={status} value={status}>{label}</option>
-          ))}
-        </select>
-        <label htmlFor='status' className='absolute left-1 -top-3.5 px-2 py-0.5 text-xs bg-blue-50 peer-focus:bg-blue-300 peer-focus:text-white rounded cursor-pointer'>
-          Estado
-        </label>
-      </li>
-    </ul>
+      <ul className='flex items-baseline gap-2'>
+        <li className='relative'>
+          <select
+            name='priority'
+            id='priority'
+            className='bg-white cursor-pointer peer'
+            onChange={handleChangePriority}
+          >
+            <option value='All'>Todas</option>
+            <option value='true'>Alta</option>
+            <option value='false'>Baja</option>
+          </select>
+          <label
+            htmlFor='priority'
+            className='absolute left-1 -top-3.5 px-2 py-0.5 text-xs bg-blue-50 peer-focus:bg-blue-300 peer-focus:text-white rounded cursor-pointer'
+          >
+            Prioridad
+          </label>
+        </li>
+        <li className='relative'>
+          <select
+            name='status'
+            id='status'
+            className='bg-white cursor-pointer peer'
+            onChange={handleChangeStatus}
+          >
+            <option value='All'>Todas</option>
+            {AllowedStatuses.map(({ status, label }) => (
+              <option key={status} value={status}>
+                {label}
+              </option>
+            ))}
+          </select>
+          <label
+            htmlFor='status'
+            className='absolute left-1 -top-3.5 px-2 py-0.5 text-xs bg-blue-50 peer-focus:bg-blue-300 peer-focus:text-white rounded cursor-pointer'
+          >
+            Estado
+          </label>
+        </li>
+      </ul>
+    </div>
   );
 }
