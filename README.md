@@ -27,8 +27,8 @@ Aplicación CRUD que gestiona tareas en equipo. Cada tarea incluye: título, des
 
 1. Clonar repositorio
 2. Crear copia de archivo `.env.template` y renombrar a `.env` tanto en carpeta frontend como en backend y llenar sus respectivas variables
-3. Instalar dependencias, ejecutar `npm install`
-4. Correr proyecto en modo desarrollo, ejecutar `npm run dev` en carpeta inicial (COLLABTASKMANAGER)
+3. Instalar dependencias, ejecutar `npm install` en carpeta origen (COLLABTASKMANAGER)
+4. Correr proyecto en modo desarrollo, ejecutar `npm run dev`
 
 ## Ejecutar en producción
 
