@@ -8,14 +8,15 @@ import useFilter from '../hooks/useFilter';
 import { useTaskStore } from '../store/TaskStore';
 import Filter from './Filter';
 import TaskListItem from './TaskListItem';
+import NoTasks from './NoTasks';
 const TaskForm = lazy(() => import('./TaskForm'));
 
 export function TaskList() {
   const { tasks, getTasks } = useTaskStore();
-  const { filterTasks } = useFilter()
-  
+  const { filterTasks } = useFilter();
+
   const MySwal = withReactContent(Swal);
-  const filteredTasks = filterTasks(tasks)
+  const filteredTasks = filterTasks(tasks);
 
   useEffect(() => {
     getTasks();
@@ -54,9 +55,13 @@ export function TaskList() {
         </div>
       </header>
       <main className='flex max-sm:flex-col gap-2 sm:flex-wrap'>
-        {filteredTasks.map((task) => (
-          <TaskListItem key={task._id} task={task} />
-        ))}
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task) => (
+            <TaskListItem key={task._id} task={task} />
+          ))
+        ) : (
+          <NoTasks />
+        )}
       </main>
     </div>
   );

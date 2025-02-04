@@ -15,7 +15,8 @@
     cursor: pointer;
     transition: all 0.2s ease;
 
-    &:not(.no-hover):hover {
+    &:not(.no-hover):hover, &:not(.no-hover):focus {
+      outline: none;
       transform: scale(1.05);
     }
 
@@ -30,6 +31,7 @@
     }
   }
 }
+
 .thin-scrollbar {
   overflow-y: auto;
   &::-webkit-scrollbar {

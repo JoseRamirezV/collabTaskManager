@@ -4,7 +4,10 @@ import { toast } from 'sonner';
 import * as Yup from 'yup';
 import { Task } from '../interfaces/task.interface';
 import { useTaskStore } from '../store/TaskStore';
-import { MdOutlineKeyboardDoubleArrowUp, MdOutlineKeyboardArrowUp } from 'react-icons/md';
+import {
+  MdOutlineKeyboardDoubleArrowUp,
+  MdOutlineKeyboardArrowUp,
+} from 'react-icons/md';
 import { parse } from '@formkit/tempo';
 
 interface Props {
@@ -42,7 +45,7 @@ export default function TaskForm({ task, close }: Props) {
       status: task?.status ?? 'Pending',
     },
     onSubmit: (values) => {
-      const limitDate = parse(values.limitDate, 'YYYY-MM-DD')
+      const limitDate = parse(values.limitDate, 'YYYY-MM-DD');
       const data = {
         ...values,
         limitDate,
@@ -69,7 +72,10 @@ export default function TaskForm({ task, close }: Props) {
   const isPriority = values.priority;
 
   return (
-    <form onSubmit={handleSubmit} className='flex flex-col gap-5 p-2 pt-0 max-sm:text-sm'>
+    <form
+      onSubmit={handleSubmit}
+      className='flex flex-col gap-5 p-2 pt-0 max-sm:text-sm'
+    >
       <label className='relative flex flex-col items-start gap-1'>
         <legend className='flex items-center gap-2'>
           Titulo
@@ -126,14 +132,16 @@ export default function TaskForm({ task, close }: Props) {
       </label>
       <footer className='flex items-center justify-between'>
         <label
-          className={`flex items-center gap-1 rounded-lg px-3 py-2 cursor-pointer transition hover: active:scale-95 text-white ${
-            isPriority ? 'bg-red-500' : 'bg-green-600'
+          className={`flex items-center gap-1 rounded-lg px-3 py-2 cursor-pointer transition-all hover:scale-105 focus-within:scale-105 active:scale-95 text-white ${
+            isPriority
+              ? 'bg-red-500 hover:bg-red-600 focus-within:bg-red-600'
+              : 'bg-green-600 hover:bg-green-7 focus-within:bg-green-700'
           }`}
         >
           {isPriority ? (
-            <MdOutlineKeyboardDoubleArrowUp className='size-5'/>
+            <MdOutlineKeyboardDoubleArrowUp className='size-5' />
           ) : (
-            <MdOutlineKeyboardArrowUp className='size-5'/>
+            <MdOutlineKeyboardArrowUp className='size-5' />
           )}
           <input
             type='checkbox'
@@ -145,7 +153,7 @@ export default function TaskForm({ task, close }: Props) {
         </label>
         <button
           type='submit'
-          className='w-fit self-end px-3 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600'
+          className='w-fit self-end px-3 py-2 rounded-lg bg-blue-500 text-white hover:bg-blue-600 focus:bg-blue-600'
           disabled={isLoading}
         >
           Guardar
