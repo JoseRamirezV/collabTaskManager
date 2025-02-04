@@ -6,8 +6,8 @@ import {
   signup,
   update,
   verifyToken,
-} from '#controllers/user.controller';
-import Auth from '#middlewares/auth.middleware';
+} from '#controllers/user.controller.js';
+import Auth from '#middlewares/auth.middleware.js';
 
 const router = Router();
 

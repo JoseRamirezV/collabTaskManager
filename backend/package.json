@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "Api para aplicación CRUD que gestiona tareas en equipo",
   "type": "module",
-  "exports": "./dist/index.mjs",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.mjs",
+    "dev": "node --env-file=.env --watch ./src/index.js",
+    "start": "node --env-file=.env ./src/index.js",
     "build": "pkgroll"
   },
   "author": "",
@@ -20,23 +19,12 @@
     "mongoose": "^8.9.5",
     "morgan": "^1.10.0"
   },
-  "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "@types/jsonwebtoken": "^9.0.8",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.10.10",
-    "pkgroll": "^2.6.1",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
-  },
   "imports": {
-    "#controllers/*": "./src/controllers/*.ts",
-    "#models/*": "./src/models/*.ts",
-    "#config/*": "./src/config/*.ts",
-    "#routes/*": "./src/routes/*.ts",
-    "#middlewares/*": "./src/middlewares/*.ts",
-    "#interfaces/*": "./src/interfaces/*.ts"
+    "#controllers/*": "./src/controllers/*",
+    "#models/*": "./src/models/*",
+    "#config/*": "./src/config/*",
+    "#routes/*": "./src/routes/*",
+    "#middlewares/*": "./src/middlewares/*",
+    "#interfaces/*": "./src/interfaces/*"
   }
 }

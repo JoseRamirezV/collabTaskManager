@@ -1,19 +1,13 @@
 import bcrypt from 'bcrypt';
-import type { Request, Response } from 'express';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
-import type { User as UserInterface } from '#interfaces/user.interface';
-import User from '#models/user';
-
-interface CustomJwtPayload extends JwtPayload {
-  _id: string;
-}
+import User from '#models/user.js';
 
 const excludeSensitiveFields = {
   password: 0,
 };
 
-export const login = async (req: Request, res: Response) => {
+export const login = async (req, res) => {
   try {
     const { email, password } = req.params;
     const user = await User.findOne({ email }).lean();
@@ -36,7 +30,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const signup = async (req: Request, res: Response) => {
+export const signup = async (req, res) => {
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
@@ -61,7 +55,7 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-export const update = async (req: Request, res: Response) => {
+export const update = async (req, res) => {
   try {
     const userId = res.locals.id;
     delete req.body.password;
@@ -83,11 +77,11 @@ export const update = async (req: Request, res: Response) => {
   }
 };
 
-export const remove = async (req: Request, res: Response) => {
+export const remove = async (req, res) => {
   try {
     const { passwordCheck } = req.params;
     const userId = res.locals.userId
-    const { password } = (await User.findById(userId)) as UserInterface;
+    const { password } = (await User.findById(userId));
     const passwordMatches = bcrypt.compareSync(passwordCheck, password);
     if (!passwordMatches) throw new Error('Contraseña incorrecta');
     await User.deleteOne({ _id: userId });
@@ -102,16 +96,16 @@ export const remove = async (req: Request, res: Response) => {
   }
 };
 
-export const verifyToken = (req: Request, res: Response) => {
+export const verifyToken = (req, res) => {
   try {
     const { token } = req.params;
     if (!token) throw new Error('La sesión caducó');
     jwt.verify(
       token,
-      process.env.SECRET_KEY as string,
+      process.env.SECRET_KEY,
       async (err, decoded) => {
         if (err) return res.status(401).json({ error: 'La sesión caducó' });
-        const { _id } = decoded as CustomJwtPayload;
+        const { _id } = decoded;
         const user = await User.findById(_id);
         res.status(200).json({ ok: true, user });
       }
@@ -126,12 +120,12 @@ export const verifyToken = (req: Request, res: Response) => {
   }
 };
 
-const encryptPassword = (password: string) => {
+const encryptPassword = (password) => {
   const saltRounds = Number(process.env.SALT_ROUNDS);
   return bcrypt.hashSync(password, saltRounds);
 };
 
-const generateToken = (data: UserInterface) =>
-  jwt.sign(data, process.env.SECRET_KEY as string, {
+const generateToken = (data) =>
+  jwt.sign(data, process.env.SECRET_KEY, {
     expiresIn: '1d',
   });

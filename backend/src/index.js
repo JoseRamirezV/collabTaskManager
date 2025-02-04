@@ -1,5 +1,5 @@
-import app from './app';
-import './db';
+import app from './app.js';
+import './db.js';
 
 const port = app.get('port');
 

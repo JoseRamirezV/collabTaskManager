@@ -1,8 +1,6 @@
-import { Request, Response } from 'express';
+import Task from '#models/task.js';
 
-import Task from '#models/task';
-
-export const getTasks = async (_: Request, res: Response) => {
+export const getTasks = async (_, res) => {
   try {
     const tasks = await Task.find();
     if (!tasks) throw new Error('No tasks found');
@@ -17,7 +15,7 @@ export const getTasks = async (_: Request, res: Response) => {
   }
 };
 
-export const getTasksByUserId = async (_: Request, res: Response) => {
+export const getTasksByUserId = async (_, res) => {
   try {
     const userId = res.locals.userId;
 
@@ -35,7 +33,7 @@ export const getTasksByUserId = async (_: Request, res: Response) => {
   }
 };
 
-export const addTask = async (req: Request, res: Response) => {
+export const addTask = async (req, res) => {
   try {
     const userId = res.locals.userId;
     
@@ -53,7 +51,7 @@ export const addTask = async (req: Request, res: Response) => {
   }
 };
 
-export const updateTask = async (req: Request, res: Response) => {
+export const updateTask = async (req, res) => {
   try {
     const taskId = req.params.id;
     if (!taskId) throw new Error('Bad request');
@@ -75,7 +73,7 @@ export const updateTask = async (req: Request, res: Response) => {
   }
 };
 
-export const deleteTask = async (req: Request, res: Response) => {
+export const deleteTask = async (req, res) => {
   try {
     const taskId = req.params.taskId;
     if (!taskId) throw new Error('Bad request');

@@ -1,4 +1,4 @@
-import { model, Schema, ValidatorProps } from 'mongoose';
+import { model, Schema } from 'mongoose';
 
 const allowedStatuses = ['Pending', 'In process', 'Completed'];
 
@@ -15,10 +15,10 @@ const TaskSchema = new Schema(
     status: {
       type: String,
       validate: {
-        validator: function (value: string) {
+        validator: function (value) {
           return allowedStatuses.includes(value);
         },
-        message: (props: ValidatorProps) =>
+        message: (props) =>
           `'${
             props.value
           }' is not a valid status. Allowed values are: ${allowedStatuses.join(
