@@ -7,13 +7,15 @@ import userRoutes from '#routes/user.routes.js';
 
 const app = express()
 
+app.options("*", cors()); // Enable preflight for all routes
+app.use(cors({origin: process.env.FRONTEND_URL}))
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors({origin: process.env.FRONTEND_URL, credentials: true}))
 
 app.set('port', process.env.PORT || 5000)
 
 app.use('/api/task/', taskRoutes)
 app.use('/api/user/', userRoutes)
+app.get('/', (_, res) => res.send("Welcome to TeamFlow API "+process.env.FRONTEND_URL))
 
 export default app
